@@ -8,14 +8,74 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <style>
+        /* General Styles */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            color: #333;
             text-align: center;
             overflow-x: hidden;
+            height: 100vh;
+            position: relative;
         }
+
+        /* CSS Animated Background with Moving Objects */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(255, 0, 150, 0.6), rgba(0, 204, 255, 0.6));
+            background-size: 200% 200%;
+            animation: gradientMove 4s ease infinite;
+            z-index: -1; /* Keeps background behind the content */
+        }
+
+        /* Gradient Animation */
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating Circles for Animated Objects */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            animation: float 6s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        /* Create multiple circles with random sizes and positions */
+        .circle1 { width: 100px; height: 100px; top: 5%; left: 5%; animation-delay: 0s; }
+        .circle2 { width: 150px; height: 150px; top: 20%; left: 15%; animation-delay: 1s; }
+        .circle3 { width: 120px; height: 120px; top: 40%; left: 40%; animation-delay: 2s; }
+        .circle4 { width: 80px; height: 80px; top: 60%; left: 50%; animation-delay: 3s; }
+        .circle5 { width: 90px; height: 90px; top: 80%; left: 25%; animation-delay: 4s; }
+        .circle6 { width: 140px; height: 140px; top: 100%; left: 60%; animation-delay: 5s; }
+        .circle7 { width: 110px; height: 110px; top: 120%; left: 70%; animation-delay: 6s; }
+        .circle8 { width: 100px; height: 100px; top: 140%; left: 80%; animation-delay: 7s; }
+        .circle9 { width: 130px; height: 130px; top: 160%; left: 15%; animation-delay: 8s; }
+        .circle10 { width: 120px; height: 120px; top: 180%; left: 40%; animation-delay: 9s; }
+
+        /* Animation for floating effect */
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Header Styles */
         header {
             background: linear-gradient(135deg, #3e4e88, #5a67d8);
             color: white;
@@ -23,15 +83,20 @@
             font-size: 28px;
             font-weight: bold;
             letter-spacing: 2px;
+            position: relative;
         }
+
         .container {
             max-width: 900px;
             margin: 30px auto;
             padding: 20px;
-            background: white;
+            background: rgba(255, 255, 255, 0.9);
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
             border-radius: 12px;
+            position: relative;
+            z-index: 1; /* Content above the background */
         }
+
         .section {
             margin-top: 30px;
             padding: 30px;
@@ -40,6 +105,12 @@
             transform: translateY(30px);
             transition: opacity 0.8s, transform 0.8s;
         }
+
+        .section.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .profile-img {
             width: 150px;
             height: 150px;
@@ -47,64 +118,117 @@
             object-fit: cover;
             margin-top: 20px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .profile-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
         .contact a {
             text-decoration: none;
             color: #007bff;
             font-weight: bold;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.3s;
         }
+
         .contact a:hover {
             color: #ff6600;
+            transform: translateX(5px);
         }
-        .fade-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+
+        .rank-image {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .rank-image:hover {
+            transform: scale(1.2);
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="background"></div>
+
+    <!-- Floating Circles -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+    <div class="circle circle4"></div>
+    <div class="circle circle5"></div>
+    <div class="circle circle6"></div>
+    <div class="circle circle7"></div>
+    <div class="circle circle8"></div>
+    <div class="circle circle9"></div>
+    <div class="circle circle10"></div>
+
+    <!-- Header Section -->
     <header>
         CSE Gaming
     </header>
+
+    <!-- Main Content -->
     <div class="container" id="main-container">
         <img src="CSE Gaming.jpg" alt="Aditya Dhirendra Singh" class="profile-img" data-aos="zoom-in">
-        
+
+        <!-- About Me Section -->
         <div class="section" id="about" data-aos="fade-up">
             <h2>About Me</h2>
             <p>
-                I am a Content Creator on Youtube as well as a 3rd Year college student currently pursuing a B. Tech. degree in CSE with IoT from Vellore Institute of Technology, Vellore, Tamil Nadu, India.
+                I am a Content Creator on YouTube and a 3rd-year B. Tech. student in CSE with IoT from VIT Vellore.
             </p>
             <p>
-                My Youtube Channel name is CSE Gaming. I started my Youtube channel just for fun and some gameplays with my friends sometimes I play solo but most of the time my friends are ther with me to play all the time.
+                My YouTube Channel name is CSE Gaming. I started my YouTube channel just for fun and some gameplays with my friends. Sometimes I play solo, but most of the time, my friends are there with me to play all the time.
             </p>
             <p>
-                My Instagram name is CSE Gaimng and Aditya Dhirendra Singh. I have two accounts 1 for the gaming channel and 1 for my personal use. I post various Youtube Shorts and funny gameplay videos of me and my friends. We just have fun and relax from the day's stuff and tiredness. We relac our mind caame play together and share our daily stories to each other.
+                My Instagram name is CSE Gaming and Aditya Dhirendra Singh. I have two accounts: one for the gaming channel and one for my personal use. I post various YouTube Shorts and funny gameplay videos of me and my friends. We just have fun and relax from the day's stuff and tiredness. We relax our minds, play together, and share our daily stories with each other.
             </p>
         </div>
-        
+
+        <!-- Games Section -->
         <div class="section" id="games" data-aos="fade-up">
             <h2>Games Playing</h2>
             <h3>Valorant</h3>
             <p><strong>Valorant ID:</strong> CSE Gaming #ADISH</p>
             <p><strong>Current Rank:</strong> <span id="current-rank">Gold 2</span></p>
-            <img id="rank-image" src="Gold 2.png" alt="Current Rank" class="profile-img">
+            <img id="rank-image" src="Gold 2.png" alt="Current Rank" class="rank-image">
             <p><strong>Peak Rank:</strong> <span id="peak-rank">Platinum 1</span></p>
-            <img id="rank-image" src="Platinum 1.png" alt="Current Rank" class="profile-img">
+            <img id="rank-image" src="Platinum 1.png" alt="Current Rank" class="rank-image">
         </div>
-        
+
+        <!-- Contact Section -->
         <div class="section contact" id="contact" data-aos="fade-up">
             <h2>Contact</h2>
             <p>Email: <a href="mailto:adityadsingh0405@gmail.com">adityadsingh0405@gmail.com</a></p>
-            <p>Youtube: <a href="https://www.youtube.com/@CSE_Gaming0234" target="_blank">youtube.com/@CSE_Gaming0234</a></p>
+            <p>YouTube: <a href="https://www.youtube.com/@CSE_Gaming0234" target="_blank">youtube.com/@CSE_Gaming0234</a></p>
             <p>Instagram: <a href="https://www.instagram.com/cse_gaming0405" target="_blank">instagram.com/cse_gaming0405</a></p>
         </div>
     </div>
+
+    <!-- AOS Initialization for Fade-in Effect -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init({
                 duration: 1000,
-                once: false
+                once: true
+            });
+
+            // Add fade-in effect on scroll
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
             });
         });
     </script>
