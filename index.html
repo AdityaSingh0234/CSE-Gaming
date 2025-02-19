@@ -247,10 +247,9 @@
             <h2>Games Playing</h2>
             <h3>Valorant</h3>
             <p><strong>Valorant ID:</strong> CSE Gaming #ADISH</p>
-            <p><strong>Current Rank:</strong> <span id="current-rank">Gold 2</span></p>
-            <img id="rank-image" src="Gold 2.png" alt="Current Rank" class="rank-image">
-            <p><strong>Peak Rank:</strong> <span id="peak-rank">Platinum 1</span></p>
-            <img id="rank-image" src="Platinum 1.png" alt="Peak Rank" class="rank-image">
+            <div id="rank-image-container">
+                <img id="rank-image" src="" alt="Current Rank" style="display:none;">
+            </div>
         </div>
 
         <!-- Contact Section -->
@@ -281,5 +280,19 @@
             });
         });
     </script>
+
+<script>
+    // Fetch rank image from the serverless function
+    fetch('/api/rank')
+        .then(response => response.json())
+        .then(data => {
+            const rankImage = document.getElementById('rank-image');
+            rankImage.src = data.imageUrl;
+            rankImage.style.display = 'block'; // Show the image once it's loaded
+        })
+        .catch(error => {
+            console.error('Error fetching rank image:', error);
+        });
+</script>
 </body>
 </html>
